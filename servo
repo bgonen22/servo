@@ -43,7 +43,7 @@ void readPotentiometers() {
    //   angle[n] -= 5;
       angle[n] += map(potVal, 570, 1023, 1, 5);
     }
-   angle[n]= constrain(angle[n],900,2100);
+   angle[n]= constrain(angle[n],0,180);
  
   }
 }
@@ -51,5 +51,9 @@ void readPotentiometers() {
 void moveServos() {
   for (byte n = 0; n < 4; n++) {
     servo[n].write(angle[n]);
+    Serial.print("servo: ");
+    Serial.print(n);
+    Serial.print(" angle: ");
+    Serial.println(angle[n]);
   }
 }
