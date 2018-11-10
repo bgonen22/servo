@@ -1,45 +1,58 @@
-
 #include <Servo.h>
-// make it smaller for faster move
-#define delay_val 12
-
-Servo tilt_1, pan_1, tilt_2, pan_2;
-
-int joyX1 = A1; // X - axis of Joystick1
-int joyY1 = A0; // y - axis of Joystick1
-int joyX2 = A3; // X - axis of Joystick2
-int joyY2 = A2; // y - axis of Joystick2
-int x1, y1, x2, y2;
-int x1_pos, y1_pos, x2_pos, y2_pos;
-void setup()
-{
-tilt_1.attach(6); // TILT on PIN 6
-pan_1.attach(5); // PAN on PIN 5
-tilt_2.attach(11); // TILT on PIN 11
-pan_2.attach(10); // PAN on PIN 10
+ 
+#define mainArm 0
+#define jib 1
+#define bucket 2
+#define slew 3
+ 
+Servo servo[4];
+ 
+byte angle[4] = {90, 90, 90, 90};
+ 
+byte potPin[4] = {A0, A1, A2, A3};
+byte servoPin[4] = {12, 11, 6, 5};
+ 
+void setup() {
+ 
+  Serial.begin(9600);
+  Serial.println("Starting DiggerCode.ino");
+ 
+ 
+  for (byte n = 0; n < 4; n++) {
+    servo[n].attach(servoPin[n]);
+  }
 }
-
-void loop()
-{
-
-x1 = map(analogRead(joyX1), 0, 1023, -5, 5);
-x1_pos += x1;
-constrain(x1_pos, 900, 2100);
-y1 = map(analogRead(joyY1), 0, 1023, -5, 5);
-y1_pos += y1;
-constrain(y1_pos, 900, 2100);
-tilt_1.write(x1);
-pan_1.write(y1);
-
-x2 = map(analogRead(joyX2), 0, 1023, -5, 5);
-x2_pos += x2;
-constrain(x2_pos, 900, 2100);
-y2 = map(analogRead(joyY2), 0, 1023, -5, 5);
-y2_pos += y2;
-constrain(y2_pos, 900, 2100);
-tilt_2.write(x2);
-pan_2.write(y2);
-
-
-delay(delay_val);
+ 
+void loop() {
+  readPotentiometers();
+  moveServos();
+  delay(10);
+}
+ 
+void readPotentiometers() {
+  int potVal;
+  for (byte n = 0; n < 4; n++) {
+    potVal = analogRead(potPin[n]);
+   
+    if (potVal < 450) {
+      angle[n] += 5;
+      if (angle[n] > 170) {
+        angle[n] = 170;
+      }
+    }
+   
+    if (potVal > 570) {
+      angle[n] -= 5;
+      if (angle[n] < 10) {
+        angle[n] = 10;
+      }
+    }
+ 
+  }
+}
+ 
+void moveServos() {
+  for (byte n = 0; n < 4; n++) {
+    servo[n].write(angle[n]);
+  }
 }
