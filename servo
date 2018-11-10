@@ -36,7 +36,7 @@ void readPotentiometers() {
    
     if (potVal < 450) {
       //angle[n] += 5;      
-      angle[n] += map(potVal, 0, 450, 1, 5);
+      angle[n] += map(potVal, 0, 450, 5, 1);
     }
    
     if (potVal > 570) {
