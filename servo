@@ -24,19 +24,19 @@ void loop()
 
 x1 = map(analogRead(joyX1), 0, 1023, -5, 5);
 x1_pos += x1;
-constrain(x1_pos, 0, 180);
+constrain(x1_pos, 900, 2100);
 y1 = map(analogRead(joyY1), 0, 1023, -5, 5);
 y1_pos += y1;
-constrain(y1_pos, 0, 180);
+constrain(y1_pos, 900, 2100);
 tilt_1.write(x1);
 pan_1.write(y1);
 
 x2 = map(analogRead(joyX2), 0, 1023, -5, 5);
 x2_pos += x2;
-constrain(x2_pos, 0, 180);
+constrain(x2_pos, 900, 2100);
 y2 = map(analogRead(joyY2), 0, 1023, -5, 5);
 y2_pos += y2;
-constrain(y2_pos, 0, 180);
+constrain(y2_pos, 900, 2100);
 tilt_2.write(x2);
 pan_2.write(y2);
 
