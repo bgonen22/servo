@@ -40,7 +40,7 @@ void readPotentiometers() {
     }
    
     if (potVal > 570) {
-      angle[n] -= 5;
+   //   angle[n] -= 5;
       angle[n] = map(potVal, 570, 1023, -1, -5);
     }
    angle[n]= constrain(angle[n],10,170);
