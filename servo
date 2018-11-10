@@ -36,12 +36,12 @@ void readPotentiometers() {
    
     if (potVal < 450) {
       //angle[n] += 5;      
-      angle[n] = map(potVal, 0, 450, 1, 5);
+      angle[n] += map(potVal, 0, 450, 1, 5);
     }
    
     if (potVal > 570) {
    //   angle[n] -= 5;
-      angle[n] = map(potVal, 570, 1023, -1, -5);
+      angle[n] += map(potVal, 570, 1023, -1, -5);
     }
    angle[n]= constrain(angle[n],10,170);
  
