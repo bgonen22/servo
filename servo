@@ -35,18 +35,13 @@ void readPotentiometers() {
     potVal = analogRead(potPin[n]);
    
     if (potVal < 450) {
-      angle[n] += 5;
-      if (angle[n] > 170) {
-        angle[n] = 170;
-      }
+      angle[n] += 5;      
     }
    
     if (potVal > 570) {
       angle[n] -= 5;
-      if (angle[n] < 10) {
-        angle[n] = 10;
-      }
     }
+   angle[n]= constrain(angle[n],10,170);
  
   }
 }
